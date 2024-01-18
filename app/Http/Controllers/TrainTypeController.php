@@ -12,7 +12,9 @@ class TrainTypeController extends Controller
      */
     public function index()
     {
-        return view('train_types/index', ['train_types' => TrainType::all()]);
+        $train_types = TrainType::all();
+        return view('train_types/index', 
+        ['train_types' => $train_types]);
     }
 
     /**

@@ -15,7 +15,9 @@ class TicketController extends Controller
      */
     public function index()
     {
-        return view('tickets/index', ['tickets' => Ticket::all()]);
+        $tickets = Ticket::all();
+        return view('tickets/index', 
+        ['tickets' => $tickets]);
     }
 
     /**
@@ -23,7 +25,11 @@ class TicketController extends Controller
      */
     public function create()
     {
-        //
+        $ticket_type = TicketType::all();
+        $trains = Train::all();
+        return view('tickets/create', 
+        ['ticket_types' => $ticket_type, 
+        'trains' => $trains]);
     }
 
     /**
@@ -31,7 +37,14 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $ticket = new Ticket;
+        $ticket->date = $request->input('date');
+        $ticket->price = $request->input('price');
+        $ticket->train_id = $request->input('train');
+        $ticket->ticket_type_id = $request->input('type');
+        $ticket->save();
+
+        return redirect('tickets');
     }
 
     /**
@@ -39,7 +52,8 @@ class TicketController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $ticket = Ticket::find($id);
+        return view('tickets/show', ['ticket' => $ticket]);
     }
 
     /**
@@ -47,7 +61,13 @@ class TicketController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $ticket = Ticket::find($id);
+        $ticket_type = TicketType::all();
+        $trains = Train::all();
+        return view('tickets/edit', 
+        ['ticket' => $ticket, 
+        'ticket_types' => $ticket_type, 
+        'trains' => $trains]);
     }
 
     /**
@@ -55,7 +75,14 @@ class TicketController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $ticket = Ticket::find($id);
+        $ticket->date = $request->input('date');
+        $ticket->price = $request->input('price');
+        $ticket->train_id = $request->input('train');
+        $ticket->ticket_type_id = $request->input('type');
+        $ticket->save();
+
+        return redirect('tickets');
     }
 
     /**
@@ -63,6 +90,7 @@ class TicketController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Ticket::find($id)->delete();
+        return redirect('tickets');
     }
 }

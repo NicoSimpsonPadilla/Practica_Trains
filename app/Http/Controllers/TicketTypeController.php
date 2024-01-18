@@ -12,7 +12,9 @@ class TicketTypeController extends Controller
      */
     public function index()
     {
-        return view('ticket_types/index', ['ticket_types' => TicketType::all()]);
+        $ticket_type = TicketType::all();
+        return view('ticket_types/index', 
+        ['ticket_types' => $ticket_type]);
     }
 
     /**

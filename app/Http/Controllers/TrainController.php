@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Train;
 use App\Models\TrainType;
+use DB;
 
 class TrainController extends Controller
 {
@@ -13,7 +14,10 @@ class TrainController extends Controller
      */
     public function index()
     {
-        return view('trains/index', ['trains' => Train::all()]);
+        $trains = Train::all();
+        return view('trains/index', [
+            'trains' => $trains
+        ]);
     }
 
     /**
@@ -21,7 +25,10 @@ class TrainController extends Controller
      */
     public function create()
     {
-        //
+        $train_types = TrainType::all();
+        return view('trains/create', [
+            'train_types' => $train_types
+        ]);
     }
 
     /**
@@ -29,7 +36,14 @@ class TrainController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $train = new Train;
+        $train->name = $request->input('name');
+        $train->passengers = $request->input('passengers');
+        $train->year = $request->input('year');
+        $train->train_type_id = $request->input('type');
+        $train->save();
+
+        return redirect('trains');
     }
 
     /**
@@ -37,7 +51,10 @@ class TrainController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $train = Train::find($id);
+        return view('trains/show', [
+            'train' => $train
+        ]);
     }
 
     /**
@@ -45,7 +62,12 @@ class TrainController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $train = Train::find($id);
+        $train_types = TrainType::all();
+        return view('trains/edit', [
+            'train' => $train, 
+            'train_types' => $train_types
+        ]);
     }
 
     /**
@@ -53,7 +75,14 @@ class TrainController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $train = Train::find($id);
+        $train->name = $request->input('name');
+        $train->passengers = $request->input('passengers');
+        $train->year = $request->input('year');
+        $train->train_type_id = $request->input('type');
+        $train->save();
+
+        return redirect('trains');
     }
 
     /**
@@ -61,6 +90,9 @@ class TrainController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // Train::find($id)->delete();
+
+        DB::table('trains')->where('id',"=",$id)->delete();
+        return redirect('/trains');
     }
 }
