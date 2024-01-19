@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ticket extends Model
 {
     use HasFactory;
-    public function train_name()
+    public function train()
     {
         return $this->belongsTo(Train::class);
     }

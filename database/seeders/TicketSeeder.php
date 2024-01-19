@@ -15,19 +15,19 @@ class TicketSeeder extends Seeder
     {
         DB::table('tickets')->insert([
             [
-                'date' => '2024-02-17 11:48:23',
+                'date' => '2024-02-17',
                 'price' => 37.49,
                 'train_id' => 1,
                 'ticket_type_id' => 1
             ],
             [
-                'date' => '2024-01-11 10:25:56',
+                'date' => '2024-01-11',
                 'price' => 23.99,
                 'train_id' => 2,
                 'ticket_type_id' => 2
             ],
             [
-                'date' => '2024-01-17 10:46:15',
+                'date' => '2024-01-17',
                 'price' => 60.00,
                 'train_id' => 3,
                 'ticket_type_id' => 3

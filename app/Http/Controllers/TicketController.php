@@ -78,7 +78,7 @@ class TicketController extends Controller
         $ticket = Ticket::find($id);
         $ticket->date = $request->input('date');
         $ticket->price = $request->input('price');
-        $ticket->train_id = $request->input('train');
+        $ticket->train->name = $request->input('train');
         $ticket->ticket_type_id = $request->input('type');
         $ticket->save();
 
